@@ -1,2 +1,2 @@
-requests
-tldextract
+requests==2.31.0
+tldextract==5.1.2
