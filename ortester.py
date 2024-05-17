@@ -20,15 +20,13 @@ def main():
 
     info = tldextract.extract(URL)
     domain_name = info.registered_domain
-    payloadlist = open("payloads.list", encoding="latin-1").readlines()
-    newlist = open("all.list", "w")
-    for line in payloadlist:
+    for line in payload_list:
         if line.count("example") == 1 or line.count("example") == 2:
             l = line.replace("example.com", domain_name)
-            newlist.write(l)
+            new_list.write(l)
         else:
-            newlist.write(line)
-    newlist.close()
+            new_list.write(line)
+    new_list.close()
 
     # Open file
     with open(file_all_list) as f:
@@ -96,6 +94,10 @@ if __name__ == '__main__':
 
     MAIN_DIR: Final[pathlib.Path] = pathlib.Path(__file__).parent
     output_json: Final[pathlib.Path] = MAIN_DIR / output
+    path_to_payloads_list: Final[pathlib.Path] = MAIN_DIR / "payloads.list"
+
+    payload_list = open(path_to_payloads_list, encoding="latin-1").readlines()
+    new_list = open(file_all_list, "w")
 
     signal.signal(signal.SIGINT, ctrl_c)
     
