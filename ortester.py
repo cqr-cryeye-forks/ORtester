@@ -2,6 +2,7 @@
 import json
 import os
 import pathlib
+import time
 from typing import Final
 
 import requests
@@ -17,7 +18,7 @@ def main():
     if options.url is None:
         parser.print_help()
         exit()
-
+    time_start = time.time()
     info = tldextract.extract(URL)
     domain_name = info.registered_domain
     for line in payload_list:
@@ -31,6 +32,8 @@ def main():
     # Open file
     with open(file_all_list) as f:
         for payload in f:
+            if time.time() - time_start >= 3600:
+                break
             payloadF = payload.strip()
             urlF = options.url + payloadF
             print(urlF)
